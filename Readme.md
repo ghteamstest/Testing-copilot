@@ -1,4 +1,4 @@
-# Testing Copilot
+# Testing-Github
 
 This repository is designed for testing GitHub Copilot functionality and capabilities.
 
@@ -20,6 +20,18 @@ This repository can be used to experiment with GitHub Copilot in various develop
 2. Write comments and let Copilot generate code
 3. Refactor existing code with Copilot's assistance
 4. Generate documentation and tests
+
+## Examples
+
+Here's a simple Java Hello World example to get started:
+
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
 
 ## Contributing
 
