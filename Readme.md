@@ -12,10 +12,22 @@ This project serves as a testing ground to evaluate and demonstrate various GitH
 - Bug detection and fixes
 - Test case generation
 
+## Getting Help
+
+**🆘 Need detailed guidance?** Check out our comprehensive [HELP.md](HELP.md) guide which includes:
+- Step-by-step testing instructions
+- Example exercises for different programming languages
+- Best practices for effective Copilot usage
+- Troubleshooting common issues
+- Advanced testing scenarios
+
 ## Getting Started
 
-This repository can be used to experiment with GitHub Copilot in various development scenarios. Feel free to:
+This repository can be used to experiment with GitHub Copilot in various development scenarios. 
 
+**📖 For detailed instructions, examples, and best practices, see our comprehensive [HELP.md](HELP.md) guide.**
+
+Quick start:
 1. Create new files and test Copilot's code suggestions
 2. Write comments and let Copilot generate code
 3. Refactor existing code with Copilot's assistance
