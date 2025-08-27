@@ -1,86 +1,183 @@
-# Testing Copilot
+# Turborepo Next.js Monorepo
 
-This repository is designed for testing GitHub Copilot functionality and capabilities.
+A modern monorepo built with Turborepo and Next.js, designed for scalable web application development with shared packages and optimized build pipelines.
 
 ## Purpose
 
-## Copilot Features to Test
+This monorepo provides a foundation for building multiple Next.js applications with shared components, utilities, and configurations. It leverages Turborepo's intelligent build system to ensure fast, efficient development and deployment workflows.
 
-Explore these GitHub Copilot capabilities:
+## Tech Stack
 
-- **Code completion and suggestions** - Start typing and see contextual suggestions
-- **Documentation generation** - Generate README files, docstrings, and comments
-- **Code refactoring assistance** - Improve existing code structure and efficiency
-- **Bug detection and fixes** - Identify and resolve common coding issues
-- **Test case generation** - Create unit tests and test scenarios
-- **Code explanation** - Get explanations for complex code segments
-- **Multi-language support** - Test across different programming languages
+- **Turborepo** - High-performance build system for JavaScript and TypeScript monorepos
+- **Next.js** - Full-stack React framework for production-ready web applications
+- **React** - Component-based UI library
+- **TypeScript** - Type-safe JavaScript for better developer experience
+- **Tailwind CSS** - Utility-first CSS framework for rapid UI development
 
 ## Repository Structure
 
-Organize your test files by feature or language:
+This monorepo is organized with a clear separation between applications and shared packages:
 
 ```
-/
-├── languages/          # Test files by programming language
-│   ├── python/
-│   ├── javascript/
-│   └── java/
-├── features/           # Test files by Copilot feature
-│   ├── code-completion/
-│   ├── refactoring/
-│   └── documentation/
-└── examples/          # Sample projects and use cases
+./
+├── apps/                    # Next.js applications
+│   ├── web/                 # Main web application
+│   ├── admin/               # Admin dashboard application  
+│   └── docs/                # Documentation site
+├── packages/                # Shared packages and libraries
+│   ├── ui/                  # Shared UI components
+│   ├── utils/               # Utility functions and helpers
+│   ├── config/              # Shared configurations (ESLint, Tailwind, etc.)
+│   └── database/            # Database schemas and utilities
+├── package.json             # Root package configuration
+├── turbo.json              # Turborepo configuration
+└── tsconfig.json           # TypeScript configuration
 ```
 
-## Supported Languages
+## Applications
 
-This repository supports testing GitHub Copilot with various programming languages:
+### Web App (`apps/web`)
+The main customer-facing Next.js application featuring:
+- Server-side rendering (SSR) and static site generation (SSG)
+- API routes for backend functionality
+- Responsive design with Tailwind CSS
+- Shared UI components from the design system
 
-- Python (.py)
-- JavaScript/TypeScript (.js, .ts)
-- Java (.java)
-- C# (.cs)
-- Go (.go)
-- Rust (.rs)
-- HTML/CSS (.html, .css)
-- And many more!
+### Admin Dashboard (`apps/admin`)  
+Administrative interface for content and user management:
+- Authentication and authorization
+- Data management interfaces
+- Analytics and reporting features
+- Role-based access control
+
+### Documentation (`apps/docs`)
+Comprehensive documentation site built with Next.js:
+- Component documentation with live examples
+- API reference and guides
+- Deployment and contribution guidelines
+
+## Shared Packages
+
+### UI Package (`packages/ui`)
+Reusable React components and design system:
+- Button, Input, Modal, and other common components
+- Consistent styling and theming
+- Storybook integration for component development
+- TypeScript definitions for type safety
+
+### Utils Package (`packages/utils`)
+Common utilities and helper functions:
+- Date formatting and manipulation
+- Validation schemas and functions
+- API client configurations
+- Constants and type definitions
 
 ## Getting Started
 
-This repository can be used to experiment with GitHub Copilot in various development scenarios. Here are specific ways to test Copilot:
+### Prerequisites
+- Node.js 18+ 
+- npm, yarn, or pnpm package manager
 
-### Code Generation Testing
-1. Create new files with descriptive names (e.g., `calculator.py`, `todo_app.js`)
-2. Write function comments describing what you want the function to do
-3. Let Copilot suggest the implementation
-4. Test different coding patterns and complexity levels
+### Installation
 
-### Documentation Testing
-1. Write code without comments
-2. Use Copilot to generate documentation and docstrings
-3. Test README generation for different project types
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/turborepo-nextjs-monorepo.git
+cd turborepo-nextjs-monorepo
+```
 
-### Refactoring and Optimization
-1. Create simple, unoptimized code
-2. Use Copilot suggestions to refactor and improve
-3. Test performance optimization suggestions
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Development
+
+Start all applications in development mode:
+```bash
+npm run dev
+```
+
+Start a specific application:
+```bash
+npm run dev --filter=web
+npm run dev --filter=admin
+npm run dev --filter=docs
+```
+
+### Building
+
+Build all applications:
+```bash
+npm run build
+```
+
+Build a specific application:
+```bash
+npm run build --filter=web
+```
+
+### Testing
+
+Run tests across all packages:
+```bash
+npm run test
+```
+
+Run tests for a specific package:
+```bash
+npm run test --filter=ui
+```
+
+## Scripts
+
+Available scripts in the monorepo:
+
+- `dev` - Start all apps in development mode
+- `build` - Build all apps for production
+- `test` - Run all tests
+- `lint` - Run ESLint across all packages
+- `format` - Format code with Prettier
+- `clean` - Clean all build artifacts
+- `type-check` - Run TypeScript type checking
+
+## Turborepo Features
+
+This setup leverages Turborepo's powerful features:
+
+- **Remote Caching** - Share build artifacts across team and CI
+- **Parallel Execution** - Run tasks across packages simultaneously  
+- **Incremental Builds** - Only rebuild what's changed
+- **Task Pipeline** - Define dependencies between build tasks
+- **Workspace Filtering** - Target specific apps or packages
 
 ## Resources
 
-- [GitHub Copilot Documentation](https://docs.github.com/en/copilot)
-- [GitHub Copilot Best Practices](https://docs.github.com/en/copilot/using-github-copilot/best-practices-for-using-github-copilot)
-- [Copilot for Business](https://docs.github.com/en/copilot/copilot-for-business)
+- [Turborepo Documentation](https://turbo.build/repo/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React Documentation](https://react.dev)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
 
 ## Contributing
 
-This is a testing repository for GitHub Copilot functionality. Feel free to:
+We welcome contributions to improve this monorepo setup:
 
-- Add examples of successful Copilot interactions
-- Create test files for different programming languages
-- Document interesting Copilot behaviors or edge cases
-- Share useful prompts and patterns that work well with Copilot
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes following the established patterns
+4. Ensure all tests pass (`npm run test`)
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to the branch (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
+
+### Guidelines
+
+- Follow the existing code style and patterns
+- Add tests for new functionality
+- Update documentation as needed
+- Use conventional commit messages
+- Ensure TypeScript types are properly defined
 
 ## License
 
-This project is for testing purposes only.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
