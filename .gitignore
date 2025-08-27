@@ -1,0 +1,59 @@
+# Compiled files
+*.class
+*.exe
+*.o
+*.obj
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Language specific
+# Python
+*.egg-info/
+dist/
+build/
+venv/
+env/
+.env
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm
+
+# Java
+target/
+*.jar
+*.war
+
+# C++
+*.a
+*.so
+*.dll
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Testing artifacts
+coverage/
+.coverage
+.pytest_cache/
+.nyc_output/
+
+# Package managers
+Pipfile.lock
+package-lock.json
+yarn.lock
