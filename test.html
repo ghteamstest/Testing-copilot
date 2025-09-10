@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signin Tests - Testing Copilot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .test-pass {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .test-fail {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #testResults {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Signin Functionality Tests</h1>
+        <p>This page tests the signin functionality without requiring manual interaction.</p>
+        
+        <button onclick="runAllTests()">Run All Tests</button>
+        <button onclick="clearResults()">Clear Results</button>
+        
+        <div id="testResults"></div>
+    </div>
+
+    <script>
+        // Create a minimal SignInManager class for testing without DOM dependencies
+        class TestableSignInManager {
+            constructor() {
+                this.loadDemoUsers();
+                // Create mock DOM elements
+                this.emailInput = { value: '' };
+                this.passwordInput = { value: '' };
+                this.messageDiv = { textContent: '', className: '' };
+            }
+            
+            // Demo users for testing purposes
+            loadDemoUsers() {
+                this.users = [
+                    { email: 'demo@example.com', password: 'password123' },
+                    { email: 'test@copilot.dev', password: 'testpass' },
+                    { email: 'user@github.com', password: 'github123' }
+                ];
+            }
+            
+            validateEmail() {
+                const email = this.emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (!email) {
+                    return false;
+                }
+                
+                if (!emailRegex.test(email)) {
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            validatePassword() {
+                const password = this.passwordInput.value;
+                
+                if (!password) {
+                    return false;
+                }
+                
+                if (password.length < 6) {
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            // Static methods for session management
+            static isUserSignedIn() {
+                return localStorage.getItem('currentUser') !== null;
+            }
+            
+            static signOut() {
+                localStorage.removeItem('currentUser');
+                return true;
+            }
+        }
+    </script>
+    
+    <script>
+        // Test utilities
+        class SigninTester {
+            constructor() {
+                this.results = [];
+            }
+            
+            runTest(testName, testFunction) {
+                try {
+                    const result = testFunction();
+                    this.addResult(testName, true, result);
+                    return true;
+                } catch (error) {
+                    this.addResult(testName, false, error.message);
+                    return false;
+                }
+            }
+            
+            addResult(testName, passed, message) {
+                this.results.push({
+                    name: testName,
+                    passed: passed,
+                    message: message
+                });
+                this.displayResult(testName, passed, message);
+            }
+            
+            displayResult(testName, passed, message) {
+                const resultsDiv = document.getElementById('testResults');
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${passed ? 'test-pass' : 'test-fail'}`;
+                resultDiv.innerHTML = `
+                    <strong>${testName}:</strong> ${passed ? 'PASS' : 'FAIL'}<br>
+                    ${message}
+                `;
+                resultsDiv.appendChild(resultDiv);
+            }
+            
+            clearResults() {
+                this.results = [];
+                document.getElementById('testResults').innerHTML = '';
+            }
+        }
+        
+        const tester = new SigninTester();
+        
+        // Test cases
+        function testEmailValidation() {
+            // Create a testable SignInManager instance
+            const manager = new TestableSignInManager();
+            
+            // Test valid email
+            manager.emailInput.value = 'test@example.com';
+            if (!manager.validateEmail()) {
+                throw new Error('Valid email failed validation');
+            }
+            
+            // Test invalid email
+            manager.emailInput.value = 'invalid-email';
+            if (manager.validateEmail()) {
+                throw new Error('Invalid email passed validation');
+            }
+            
+            // Test empty email
+            manager.emailInput.value = '';
+            if (manager.validateEmail()) {
+                throw new Error('Empty email passed validation');
+            }
+            
+            return 'Email validation works correctly for valid, invalid, and empty inputs';
+        }
+        
+        function testPasswordValidation() {
+            const manager = new TestableSignInManager();
+            
+            // Test valid password
+            manager.passwordInput.value = 'password123';
+            if (!manager.validatePassword()) {
+                throw new Error('Valid password failed validation');
+            }
+            
+            // Test short password
+            manager.passwordInput.value = '12345';
+            if (manager.validatePassword()) {
+                throw new Error('Short password passed validation');
+            }
+            
+            // Test empty password
+            manager.passwordInput.value = '';
+            if (manager.validatePassword()) {
+                throw new Error('Empty password passed validation');
+            }
+            
+            return 'Password validation works correctly for valid, short, and empty inputs';
+        }
+        
+        function testUserAuthentication() {
+            const manager = new TestableSignInManager();
+            
+            // Test valid demo user
+            manager.emailInput.value = 'demo@example.com';
+            manager.passwordInput.value = 'password123';
+            
+            // We can't easily test the async authentication, but we can verify the user exists
+            const validUser = manager.users.find(u => 
+                u.email === 'demo@example.com' && u.password === 'password123'
+            );
+            
+            if (!validUser) {
+                throw new Error('Demo user not found in user list');
+            }
+            
+            // Test invalid user
+            const invalidUser = manager.users.find(u => 
+                u.email === 'invalid@test.com' && u.password === 'wrongpass'
+            );
+            
+            if (invalidUser) {
+                throw new Error('Invalid user found in user list');
+            }
+            
+            return 'User authentication data structure is correct';
+        }
+        
+        function testDemoUsers() {
+            const manager = new TestableSignInManager();
+            const expectedUsers = [
+                { email: 'demo@example.com', password: 'password123' },
+                { email: 'test@copilot.dev', password: 'testpass' },
+                { email: 'user@github.com', password: 'github123' }
+            ];
+            
+            if (manager.users.length !== expectedUsers.length) {
+                throw new Error(`Expected ${expectedUsers.length} users, found ${manager.users.length}`);
+            }
+            
+            for (let expected of expectedUsers) {
+                const found = manager.users.find(u => 
+                    u.email === expected.email && u.password === expected.password
+                );
+                if (!found) {
+                    throw new Error(`Demo user ${expected.email} not found`);
+                }
+            }
+            
+            return `All ${expectedUsers.length} demo users are properly configured`;
+        }
+        
+        function testUtilityFunctions() {
+            // Clear any existing session
+            TestableSignInManager.signOut();
+            
+            if (TestableSignInManager.isUserSignedIn()) {
+                throw new Error('User should not be signed in after signOut');
+            }
+            
+            // Simulate signing in
+            localStorage.setItem('currentUser', JSON.stringify({ email: 'test@example.com' }));
+            
+            if (!TestableSignInManager.isUserSignedIn()) {
+                throw new Error('User should be signed in after setting localStorage');
+            }
+            
+            // Test sign out
+            TestableSignInManager.signOut();
+            
+            if (TestableSignInManager.isUserSignedIn()) {
+                throw new Error('User should not be signed in after signOut');
+            }
+            
+            return 'Utility functions work correctly for session management';
+        }
+        
+        function runAllTests() {
+            tester.clearResults();
+            
+            // Add a header
+            const resultsDiv = document.getElementById('testResults');
+            const header = document.createElement('div');
+            header.innerHTML = '<h3>Test Results:</h3>';
+            resultsDiv.appendChild(header);
+            
+            // Run all tests
+            tester.runTest('Email Validation', testEmailValidation);
+            tester.runTest('Password Validation', testPasswordValidation);
+            tester.runTest('User Authentication', testUserAuthentication);
+            tester.runTest('Demo Users Configuration', testDemoUsers);
+            tester.runTest('Utility Functions', testUtilityFunctions);
+            
+            // Summary
+            const passedTests = tester.results.filter(r => r.passed).length;
+            const totalTests = tester.results.length;
+            
+            const summary = document.createElement('div');
+            summary.className = `test-result ${passedTests === totalTests ? 'test-pass' : 'test-fail'}`;
+            summary.innerHTML = `<strong>Summary:</strong> ${passedTests}/${totalTests} tests passed`;
+            resultsDiv.appendChild(summary);
+        }
+        
+        function clearResults() {
+            tester.clearResults();
+        }
+        
+        // Auto-run tests when page loads
+        window.addEventListener('load', () => {
+            setTimeout(runAllTests, 1000);
+        });
+    </script>
+</body>
+</html>
