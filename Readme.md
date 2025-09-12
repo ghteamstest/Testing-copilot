@@ -21,6 +21,16 @@ This repository can be used to experiment with GitHub Copilot in various develop
 3. Refactor existing code with Copilot's assistance
 4. Generate documentation and tests
 
+### Example: Simple Greeting
+
+The repository includes a simple greeting program (`greeting.py`) that demonstrates basic functionality:
+
+```bash
+python3 greeting.py
+```
+
+This will output: `hello there`
+
 ## Contributing
 
 This is a testing repository. Feel free to experiment and add examples of Copilot functionality.
