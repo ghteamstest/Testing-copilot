@@ -1,0 +1,47 @@
+{
+  "name": "testing-copilot",
+  "version": "1.0.0",
+  "description": "Repository for testing GitHub Copilot functionality",
+  "main": "examples/javascript_example.js",
+  "scripts": {
+    "test": "python -m pytest tests/",
+    "test-python": "python tests/test_examples.py",
+    "lint": "echo 'No linting configured yet'",
+    "start": "node examples/javascript_example.js"
+  },
+  "keywords": [
+    "github-copilot",
+    "testing",
+    "ai-assistance",
+    "code-completion"
+  ],
+  "author": "GitHub Copilot Testing Team",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "eslint": "^8.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "python": ">=3.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ghteamstest/Testing-copilot.git"
+  },
+  "copilot-testing": {
+    "features": [
+      "code-completion",
+      "function-generation", 
+      "test-creation",
+      "documentation-assistance",
+      "refactoring-suggestions"
+    ],
+    "languages": ["python", "javascript", "json"],
+    "examples": {
+      "python": "examples/python_example.py",
+      "javascript": "examples/javascript_example.js",
+      "tests": "tests/test_examples.py"
+    }
+  }
+}
