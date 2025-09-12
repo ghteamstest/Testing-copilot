@@ -1,0 +1,14 @@
+========================================
+                                        
+          ✨ GREETING CARD ✨           
+                                        
+            Hello There                 
+                                        
+      Wishing you a wonderful day!      
+                                        
+          ⭐ Have a great time! ⭐       
+                                        
+========================================
+
+This is a simple greeting card message with "Hello There" text as requested.
+Created for testing GitHub Copilot functionality.
