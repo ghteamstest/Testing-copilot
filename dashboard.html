@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Testing Copilot</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-content">
+                <h1>Testing Copilot Dashboard</h1>
+                <div class="user-actions">
+                    <span id="userEmail" class="user-email"></span>
+                    <button id="signoutBtn" class="signout-btn">Sign Out</button>
+                </div>
+            </div>
+        </header>
+        
+        <main class="dashboard-main">
+            <div class="welcome-section">
+                <h2>Welcome back!</h2>
+                <p>You have successfully signed in to the Testing Copilot platform.</p>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👤</div>
+                    <div class="stat-info">
+                        <h3>Profile</h3>
+                        <p>Manage your account</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">⚙️</div>
+                    <div class="stat-info">
+                        <h3>Settings</h3>
+                        <p>Configure preferences</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <h3>Analytics</h3>
+                        <p>View your data</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">🔔</div>
+                    <div class="stat-info">
+                        <h3>Notifications</h3>
+                        <p>Stay updated</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="recent-activity">
+                <h3>Recent Activity</h3>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="activity-icon">✅</div>
+                        <div class="activity-content">
+                            <p><strong>Successful Sign In</strong></p>
+                            <span class="activity-time" id="signinTime"></span>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">🚀</div>
+                        <div class="activity-content">
+                            <p><strong>Welcome to Testing Copilot</strong></p>
+                            <span class="activity-time">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="dashboard-footer">
+            <p>&copy; 2024 Testing Copilot. All rights reserved.</p>
+        </footer>
+    </div>
+    
+    <script src="dashboard.js"></script>
+</body>
+</html>
