@@ -21,6 +21,43 @@ This repository can be used to experiment with GitHub Copilot in various develop
 3. Refactor existing code with Copilot's assistance
 4. Generate documentation and tests
 
+## Examples
+
+### AEXRCFGVH Utility
+
+The repository includes a utility module `aexrcfgvh.py` that demonstrates various programming patterns for testing GitHub Copilot:
+
+```python
+from aexrcfgvh import AexrcfgvhUtility
+
+# Create an instance
+util = AexrcfgvhUtility()
+
+# Generate random strings
+random_text = util.generate_random_string(10)
+
+# Reverse strings
+reversed_text = util.reverse_string("hello world")
+
+# Count characters
+char_counts = util.count_characters("aexrcfgvh")
+
+# Check palindromes
+is_palindrome = util.is_palindrome("racecar")
+
+# View operation history
+history = util.get_history()
+```
+
+**Running the examples:**
+```bash
+# Run the demonstration
+python3 aexrcfgvh.py
+
+# Run the tests
+python3 test_aexrcfgvh.py
+```
+
 ## Contributing
 
 This is a testing repository. Feel free to experiment and add examples of Copilot functionality.
