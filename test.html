@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Tests - Testing Copilot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-results {
+            margin-top: 20px;
+        }
+        .test-case {
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 4px solid #ddd;
+            background: #f9f9f9;
+        }
+        .test-case.pass {
+            border-left-color: #4CAF50;
+            background: #e8f5e8;
+        }
+        .test-case.fail {
+            border-left-color: #f44336;
+            background: #fde8e8;
+        }
+        .test-summary {
+            margin-top: 20px;
+            padding: 15px;
+            background: #2196F3;
+            color: white;
+            border-radius: 4px;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Settings Manager Tests</h1>
+        <p>Comprehensive test suite for the settings functionality</p>
+        
+        <div>
+            <button onclick="runAllTests()">Run All Tests</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+        
+        <div id="testResults" class="test-results"></div>
+        <div id="testSummary" class="test-summary" style="display: none;"></div>
+    </div>
+
+    <!-- Include the settings script -->
+    <script src="settings.js"></script>
+    
+    <script>
+        // Test framework
+        class TestRunner {
+            constructor() {
+                this.tests = [];
+                this.results = [];
+            }
+
+            addTest(name, testFn) {
+                this.tests.push({ name, testFn });
+            }
+
+            async runTests() {
+                this.results = [];
+                const resultsDiv = document.getElementById('testResults');
+                resultsDiv.innerHTML = '<h2>Running Tests...</h2>';
+
+                for (let test of this.tests) {
+                    try {
+                        await test.testFn();
+                        this.results.push({ name: test.name, status: 'pass', error: null });
+                        this.displayTest(test.name, 'pass');
+                    } catch (error) {
+                        this.results.push({ name: test.name, status: 'fail', error: error.message });
+                        this.displayTest(test.name, 'fail', error.message);
+                    }
+                }
+
+                this.displaySummary();
+            }
+
+            displayTest(name, status, error = null) {
+                const resultsDiv = document.getElementById('testResults');
+                const testDiv = document.createElement('div');
+                testDiv.className = `test-case ${status}`;
+                testDiv.innerHTML = `
+                    <strong>${name}</strong> - <em>${status.toUpperCase()}</em>
+                    ${error ? `<br><small>Error: ${error}</small>` : ''}
+                `;
+                resultsDiv.appendChild(testDiv);
+            }
+
+            displaySummary() {
+                const passed = this.results.filter(r => r.status === 'pass').length;
+                const failed = this.results.filter(r => r.status === 'fail').length;
+                const total = this.results.length;
+
+                const summaryDiv = document.getElementById('testSummary');
+                summaryDiv.style.display = 'block';
+                summaryDiv.innerHTML = `
+                    Test Summary: ${passed}/${total} tests passed (${failed} failed)
+                    ${failed === 0 ? ' ✅ All tests passed!' : ' ❌ Some tests failed'}
+                `;
+            }
+        }
+
+        // Create test runner instance
+        const testRunner = new TestRunner();
+
+        // Helper functions for testing
+        function assert(condition, message) {
+            if (!condition) {
+                throw new Error(message || 'Assertion failed');
+            }
+        }
+
+        function assertEquals(actual, expected, message) {
+            if (actual !== expected) {
+                throw new Error(message || `Expected ${expected}, but got ${actual}`);
+            }
+        }
+
+        function assertNotNull(value, message) {
+            if (value === null || value === undefined) {
+                throw new Error(message || 'Value should not be null or undefined');
+            }
+        }
+
+        // Mock localStorage for testing
+        function mockLocalStorage() {
+            const storage = {};
+            return {
+                getItem: (key) => storage[key] || null,
+                setItem: (key, value) => storage[key] = value,
+                removeItem: (key) => delete storage[key],
+                clear: () => Object.keys(storage).forEach(key => delete storage[key])
+            };
+        }
+
+        // Test cases
+        testRunner.addTest('SettingsManager Initialization', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            assertNotNull(manager, 'SettingsManager should be created');
+            assertNotNull(manager.defaultSettings, 'Default settings should exist');
+            assertNotNull(manager.currentSettings, 'Current settings should exist');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Default Settings Values', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            assertEquals(manager.defaultSettings.theme, 'light', 'Default theme should be light');
+            assertEquals(manager.defaultSettings.notifications, true, 'Default notifications should be true');
+            assertEquals(manager.defaultSettings.language, 'en', 'Default language should be en');
+            assertEquals(manager.defaultSettings.autoSave, 30, 'Default auto-save should be 30');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Settings Validation - Valid Settings', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            const validSettings = {
+                theme: 'dark',
+                notifications: false,
+                language: 'es',
+                autoSave: 60
+            };
+            
+            const errors = manager.validateSettings(validSettings);
+            assertEquals(errors.length, 0, 'Valid settings should have no validation errors');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Settings Validation - Invalid Theme', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            const invalidSettings = {
+                theme: 'invalid_theme',
+                notifications: true,
+                language: 'en',
+                autoSave: 30
+            };
+            
+            const errors = manager.validateSettings(invalidSettings);
+            assert(errors.length > 0, 'Invalid theme should produce validation errors');
+            assert(errors.some(e => e.includes('theme')), 'Error should mention theme');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Settings Validation - Invalid Auto-save Range', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            const invalidSettings = {
+                theme: 'light',
+                notifications: true,
+                language: 'en',
+                autoSave: 5 // Too low
+            };
+            
+            const errors = manager.validateSettings(invalidSettings);
+            assert(errors.length > 0, 'Invalid auto-save value should produce validation errors');
+            assert(errors.some(e => e.includes('Auto-save')), 'Error should mention auto-save');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Save and Load Settings', () => {
+            const mockStorage = mockLocalStorage();
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockStorage;
+            
+            const manager = new SettingsManager();
+            const testSettings = {
+                theme: 'dark',
+                notifications: false,
+                language: 'fr',
+                autoSave: 120
+            };
+            
+            manager.currentSettings = testSettings;
+            const saveResult = manager.saveSettings();
+            assert(saveResult, 'Settings should save successfully');
+            
+            // Create a new manager to test loading
+            const manager2 = new SettingsManager();
+            assertEquals(manager2.currentSettings.theme, 'dark', 'Theme should be loaded correctly');
+            assertEquals(manager2.currentSettings.notifications, false, 'Notifications should be loaded correctly');
+            assertEquals(manager2.currentSettings.language, 'fr', 'Language should be loaded correctly');
+            assertEquals(manager2.currentSettings.autoSave, 120, 'Auto-save should be loaded correctly');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Reset Settings', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            
+            // Change settings
+            manager.currentSettings = {
+                theme: 'dark',
+                notifications: false,
+                language: 'es',
+                autoSave: 180
+            };
+            
+            // Reset settings
+            manager.resetSettings();
+            
+            // Check if reset to defaults
+            assertEquals(manager.currentSettings.theme, 'light', 'Theme should be reset to default');
+            assertEquals(manager.currentSettings.notifications, true, 'Notifications should be reset to default');
+            assertEquals(manager.currentSettings.language, 'en', 'Language should be reset to default');
+            assertEquals(manager.currentSettings.autoSave, 30, 'Auto-save should be reset to default');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Update Individual Setting', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            
+            const result = manager.updateSetting('theme', 'dark');
+            assert(result, 'Updating valid setting should return true');
+            assertEquals(manager.currentSettings.theme, 'dark', 'Setting should be updated');
+            
+            const invalidResult = manager.updateSetting('invalidKey', 'value');
+            assert(!invalidResult, 'Updating invalid setting should return false');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        testRunner.addTest('Get Settings', () => {
+            const originalLocalStorage = window.localStorage;
+            window.localStorage = mockLocalStorage();
+            
+            const manager = new SettingsManager();
+            const settings = manager.getSettings();
+            
+            assertNotNull(settings, 'getSettings should return an object');
+            assert(settings.hasOwnProperty('theme'), 'Settings should have theme property');
+            assert(settings.hasOwnProperty('notifications'), 'Settings should have notifications property');
+            assert(settings.hasOwnProperty('language'), 'Settings should have language property');
+            assert(settings.hasOwnProperty('autoSave'), 'Settings should have autoSave property');
+            
+            // Ensure it's a copy, not reference
+            settings.theme = 'modified';
+            assert(manager.currentSettings.theme !== 'modified', 'getSettings should return a copy, not reference');
+            
+            window.localStorage = originalLocalStorage;
+        });
+
+        // Global functions for buttons
+        function runAllTests() {
+            testRunner.runTests();
+        }
+
+        function clearResults() {
+            document.getElementById('testResults').innerHTML = '';
+            document.getElementById('testSummary').style.display = 'none';
+        }
+
+        // Auto-run tests on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                runAllTests();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
