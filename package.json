@@ -1,0 +1,28 @@
+{
+  "name": "testing-copilot",
+  "version": "1.0.0",
+  "description": "A repository for testing GitHub Copilot functionality and capabilities",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node src/index.js",
+    "dev": "node src/index.js"
+  },
+  "keywords": [
+    "github-copilot",
+    "testing",
+    "ai-assistant",
+    "code-completion"
+  ],
+  "author": "GitHub Copilot Testing Team",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/tests/**/*.test.js"
+    ]
+  }
+}
