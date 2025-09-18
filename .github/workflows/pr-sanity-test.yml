@@ -1,0 +1,65 @@
+name: PR Sanity Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+
+jobs:
+  sanity-check:
+    runs-on: ubuntu-latest
+    name: Repository Sanity Checks
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        
+    - name: Install markdown linter
+      run: npm install -g markdownlint-cli
+      
+    - name: Run sanity tests
+      run: |
+        chmod +x .github/scripts/sanity-test.sh
+        .github/scripts/sanity-test.sh
+        
+    - name: Lint markdown files
+      run: markdownlint *.md
+      
+    - name: Validate repository structure
+      run: |
+        echo "Validating repository structure..."
+        
+        # Check if README.md exists
+        if [ ! -f "Readme.md" ]; then
+          echo "❌ README.md is missing"
+          exit 1
+        else
+          echo "✅ README.md found"
+        fi
+        
+        # Check README content
+        if ! grep -q "Testing Copilot" Readme.md; then
+          echo "❌ README.md does not contain expected title"
+          exit 1
+        else
+          echo "✅ README.md has proper title"
+        fi
+        
+        # Check if README has required sections
+        required_sections=("Purpose" "Getting Started" "Contributing")
+        for section in "${required_sections[@]}"; do
+          if ! grep -q "## $section" Readme.md; then
+            echo "❌ README.md missing required section: $section"
+            exit 1
+          else
+            echo "✅ README.md has section: $section"
+          fi
+        done
+        
+        echo "✅ All repository structure validations passed"
