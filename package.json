@@ -1,0 +1,40 @@
+{
+  "name": "github-copilot-testing",
+  "version": "1.0.0",
+  "description": "Testing environment for GitHub Copilot PR functionality",
+  "main": "examples/javascript_sample.js",
+  "scripts": {
+    "test": "./scripts/run_tests.sh",
+    "test:python": "python3 tests/test_basic.py",
+    "test:js": "node -c examples/javascript_sample.js",
+    "test:cpp": "g++ -std=c++14 -c examples/cpp_sample.cpp -o /tmp/cpp_test.o && rm -f /tmp/cpp_test.o",
+    "lint:js": "node -c examples/javascript_sample.js",
+    "build:cpp": "g++ -std=c++14 examples/cpp_sample.cpp -o build/cpp_sample",
+    "clean": "rm -rf build/ *.o"
+  },
+  "keywords": [
+    "github-copilot",
+    "testing",
+    "pr-testing",
+    "code-completion",
+    "ai-assistance"
+  ],
+  "author": "GitHub Copilot Testing Team",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.0.0",
+    "prettier": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "python": ">=3.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ghteamstest/Testing-copilot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghteamstest/Testing-copilot/issues"
+  },
+  "homepage": "https://github.com/ghteamstest/Testing-copilot#readme"
+}
