@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greeting Card - Hello There</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .greeting-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .greeting-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .main-message {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .decoration {
+            font-size: 3em;
+            margin: 10px 0;
+            z-index: 1;
+        }
+
+        .sub-message {
+            font-size: 1.2em;
+            color: #666;
+            text-align: center;
+            z-index: 1;
+            font-style: italic;
+        }
+
+        .sparkle {
+            position: absolute;
+            color: #ffd700;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .sparkle:nth-child(1) { top: 20px; left: 30px; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 50px; right: 40px; animation-delay: 0.5s; }
+        .sparkle:nth-child(3) { bottom: 60px; left: 50px; animation-delay: 1s; }
+        .sparkle:nth-child(4) { bottom: 30px; right: 30px; animation-delay: 1.5s; }
+    </style>
+</head>
+<body>
+    <div class="greeting-card">
+        <div class="sparkle">✨</div>
+        <div class="sparkle">⭐</div>
+        <div class="sparkle">✨</div>
+        <div class="sparkle">⭐</div>
+        
+        <div class="decoration">🌟</div>
+        <div class="main-message">Hello There!</div>
+        <div class="sub-message">Hope you have a wonderful day!</div>
+        <div class="decoration">🌟</div>
+    </div>
+</body>
+</html>
