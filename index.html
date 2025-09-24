@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testing Copilot - Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sign-in-form">
+            <h1>Sign In</h1>
+            <p class="subtitle">Welcome to Testing Copilot</p>
+            
+            <form id="signInForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="rememberMe" name="rememberMe">
+                        <span class="checkmark"></span>
+                        Remember me
+                    </label>
+                </div>
+                
+                <button type="submit" class="sign-in-btn" id="signInBtn">
+                    <span class="btn-text">Sign In</span>
+                    <div class="loading-spinner" id="loadingSpinner"></div>
+                </button>
+                
+                <div class="form-footer">
+                    <a href="#" class="forgot-password">Forgot your password?</a>
+                </div>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                <h2>Welcome!</h2>
+                <p>You have successfully signed in.</p>
+                <button onclick="signOut()" class="sign-out-btn">Sign Out</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
