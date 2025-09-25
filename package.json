@@ -1,0 +1,26 @@
+{
+  "name": "testing-copilot-login",
+  "version": "1.0.0",
+  "description": "A demonstration of comprehensive error handling in a login function for GitHub Copilot testing",
+  "main": "login.js",
+  "scripts": {
+    "demo": "node login.js",
+    "example": "node example.js",
+    "test": "node login.js && node example.js",
+    "test-rate-limit": "node test-rate-limiting.js",
+    "test-network": "node test-network-errors.js",
+    "test-all": "npm run test && npm run test-rate-limit && npm run test-network"
+  },
+  "keywords": [
+    "login",
+    "authentication",
+    "error-handling",
+    "github-copilot",
+    "demo"
+  ],
+  "author": "GitHub Copilot",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
