@@ -1,0 +1,26 @@
+{
+  "name": "hello-world-greeting-cards",
+  "version": "1.0.0",
+  "description": "A collection of Hello World greeting card implementations for testing GitHub Copilot",
+  "main": "greeting-card.js",
+  "scripts": {
+    "start": "node greeting-card.js",
+    "html": "python3 -m http.server 8000",
+    "python": "python3 greeting_card.py",
+    "test": "echo \"Testing greeting cards...\" && node greeting-card.js"
+  },
+  "keywords": [
+    "hello-world",
+    "greeting-card",
+    "copilot",
+    "demo",
+    "javascript",
+    "python",
+    "html"
+  ],
+  "author": "GitHub Copilot Testing",
+  "license": "MIT",
+  "engines": {
+    "node": ">=12.0.0"
+  }
+}
