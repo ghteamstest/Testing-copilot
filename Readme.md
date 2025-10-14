@@ -12,6 +12,21 @@ This project serves as a testing ground to evaluate and demonstrate various GitH
 - Bug detection and fixes
 - Test case generation
 
+## Features
+
+### Sign In Page
+
+A simple, responsive sign-in page demonstrating:
+- HTML form structure with username and password fields
+- CSS styling with gradient backgrounds and modern UI design
+- JavaScript form validation and simulated authentication
+- User feedback with success/error messages
+
+To use the sign-in page:
+1. Open `signin.html` in a web browser
+2. For testing, use credentials: `demo` / `demo123`
+3. The page validates input and provides feedback
+
 ## Getting Started
 
 This repository can be used to experiment with GitHub Copilot in various development scenarios. Feel free to:
