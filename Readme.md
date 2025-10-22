@@ -2,6 +2,12 @@
 
 This repository is designed for testing GitHub Copilot functionality and capabilities.
 
+## Features
+
+### Login Function with Error Handling
+
+This repository includes a comprehensive login function with robust error handling. See [LOGIN_DOCUMENTATION.md](LOGIN_DOCUMENTATION.md) for detailed information.
+
 ## Purpose
 
 This project serves as a testing ground to evaluate and demonstrate various GitHub Copilot features, including:
@@ -11,6 +17,7 @@ This project serves as a testing ground to evaluate and demonstrate various GitH
 - Code refactoring assistance
 - Bug detection and fixes
 - Test case generation
+- Error handling implementation
 
 ## Getting Started
 

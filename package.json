@@ -1,0 +1,27 @@
+{
+  "name": "testing-copilot",
+  "version": "1.0.0",
+  "description": "Testing repository for GitHub Copilot with login error handling",
+  "main": "login.js",
+  "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "testing",
+    "copilot",
+    "login",
+    "error-handling"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  }
+}
