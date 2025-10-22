@@ -25,6 +25,9 @@ This repository can be used to experiment with GitHub Copilot in various develop
 
 This is a testing repository. Feel free to experiment and add examples of Copilot functionality.
 
+### Feature 2
+This section was added by feature-branch-2 to create a conflicting change.
+
 ## License
 
 This project is for testing purposes only.
