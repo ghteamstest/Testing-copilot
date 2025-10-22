@@ -23,6 +23,17 @@ This repository can be used to experiment with GitHub Copilot in various develop
 
 ## Contributing
 
+This repository follows a PR approval process to maintain code quality:
+
+1. Create a feature branch for your changes
+2. Submit a pull request
+3. Wait for automatic review requests to code owners
+4. Address any review feedback
+5. Get approval from required reviewers
+6. Merge after approval
+
+For detailed guidelines, see [Pull Request Guidelines](.github/PULL_REQUEST_GUIDELINES.md).
+
 This is a testing repository. Feel free to experiment and add examples of Copilot functionality.
 
 ## License

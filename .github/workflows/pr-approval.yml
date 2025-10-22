@@ -1,0 +1,62 @@
+name: PR Approval Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+  pull_request_review:
+    types: [submitted, dismissed]
+
+permissions:
+  pull-requests: read
+  contents: read
+
+jobs:
+  check-approvals:
+    name: Check PR Approvals
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Check for required approvals
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            const reviews = await github.rest.pulls.listReviews({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number
+            });
+            
+            // Get the latest review from each user
+            const latestReviews = {};
+            reviews.data.forEach(review => {
+              if (!latestReviews[review.user.login] || 
+                  new Date(review.submitted_at) > new Date(latestReviews[review.user.login].submitted_at)) {
+                latestReviews[review.user.login] = review;
+              }
+            });
+            
+            // Count approvals
+            const approvals = Object.values(latestReviews).filter(
+              review => review.state === 'APPROVED'
+            );
+            
+            console.log(`PR #${pr.number} has ${approvals.length} approval(s)`);
+            
+            if (approvals.length === 0) {
+              core.notice('This PR is waiting for approval from code owners');
+            } else {
+              core.notice(`This PR has been approved by: ${approvals.map(a => a.user.login).join(', ')}`);
+            }
+            
+            // Note: Actual enforcement should be done via branch protection rules
+            // This workflow just provides visibility
+      
+      - name: PR Status Summary
+        run: |
+          echo "✅ PR approval validation complete"
+          echo "Check branch protection rules for enforcement"
