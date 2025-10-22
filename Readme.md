@@ -25,6 +25,18 @@ This repository can be used to experiment with GitHub Copilot in various develop
 
 This is a testing repository. Feel free to experiment and add examples of Copilot functionality.
 
+### How to Contribute via Pull Requests
+
+New to creating Pull Requests? Check out our comprehensive guide:
+
+📖 **[How to Create a Pull Request](HOW_TO_CREATE_A_PR.md)**
+
+This guide covers:
+- Step-by-step instructions for creating a PR
+- Best practices for contributing
+- Common Git commands
+- Troubleshooting tips
+
 ## License
 
 This project is for testing purposes only.
