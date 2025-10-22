@@ -70,6 +70,20 @@ await login('admin', 'password123', { timeout: 1 });
 // Error: Login timeout exceeded
 ```
 
+## Examples
+
+See [examples.js](examples.js) for comprehensive usage examples including:
+- Successful login
+- Handling invalid credentials
+- Input validation
+- Custom timeout configuration
+- Production-ready error handling patterns
+
+Run the examples:
+```bash
+node examples.js
+```
+
 ## Running Tests
 
 ```bash
