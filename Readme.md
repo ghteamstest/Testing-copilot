@@ -28,6 +28,9 @@ This is a testing repository. Feel free to experiment and add examples of Copilo
 ### Feature 1
 This section was added by feature-branch-1 to demonstrate merge conflicts.
 
+### Feature 2
+This section was added by feature-branch-2 to create a conflicting change.
+
 ## License
 
 This project is for testing purposes only.
