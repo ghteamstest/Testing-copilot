@@ -1,0 +1,13 @@
+# CODEOWNERS file for PR approval requirements
+# This file defines individuals or teams that are responsible for code in this repository
+# and will be automatically requested for review when a PR is created.
+
+# Default owners for everything in the repo
+# These users/teams will be requested for review on all PRs
+* @ghteamstest/reviewers
+
+# Specific ownership patterns can be added below
+# Examples:
+# /docs/ @ghteamstest/docs-team
+# *.md @ghteamstest/docs-team
+# /src/ @ghteamstest/core-team
